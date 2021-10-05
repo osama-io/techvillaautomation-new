@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "626710631414",
+    "firebase_url": "https://homeautomation-93b14-default-rtdb.firebaseio.com",
+    "project_id": "homeautomation-93b14",
+    "storage_bucket": "homeautomation-93b14.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626710631414:android:63def7c2d71405eda8add7",
+        "android_client_info": {
+          "package_name": "com.example.techvilla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "626710631414-reql3f9rk8q656ed33vsbqsisp3dblav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyuScNQ9P169jsPgF9xuPRVpdKRKTMS9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "626710631414-reql3f9rk8q656ed33vsbqsisp3dblav.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626710631414:android:461a0a3123933d77a8add7",
+        "android_client_info": {
+          "package_name": "com.example.techvillaautomation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "626710631414-6sqhqjh4uv3p7tvb1fs89hvakk02qnnm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.techvillaautomation",
+            "certificate_hash": "a65f9d14c3f5aee5a592d2be6a55db635b94aee3"
+          }
+        },
+        {
+          "client_id": "626710631414-reql3f9rk8q656ed33vsbqsisp3dblav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyuScNQ9P169jsPgF9xuPRVpdKRKTMS9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "626710631414-reql3f9rk8q656ed33vsbqsisp3dblav.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
