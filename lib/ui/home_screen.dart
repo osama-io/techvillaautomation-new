@@ -10,11 +10,14 @@ import 'package:techvillaautomation/model/user.dart';
 import 'drawer/profile.dart';
 
 class HomeScreen extends GetWidget<FirebaseController> {
- final dropdownvalue = 'Apple'.obs;
-  var items =  ['Apple','Banana','Grapes','Orange','watermelon','Pineapple'];
+  final dropdownvalue = 'Room'.obs;
+  var items = [
+    'Room',
+    'Main Gate',
+    'Water Motor',
+    'Tv Lounge',
+  ];
   final TextEditingController _dialogueBoxText = TextEditingController();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -157,42 +160,55 @@ class HomeScreen extends GetWidget<FirebaseController> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  print(dropdownvalue);
                                   Get.defaultDialog(
-                                      title: "Add Rooms",
-                                      middleText: "Hello world!",
-                                      //  backgroundColor: Colors.green,
-                                      // titleStyle: TextStyle(color: Colors.white),
-                                      //middleTextStyle: TextStyle(color: Colors.white),
-                                      textConfirm: "Confirm",
-                                      textCancel: "Cancel",
-                                      //cancelTextColor: Colors.white,
-                                      //confirmTextColor: Colors.white,
-                                      //buttonColor: Colors.red,
-                                      barrierDismissible: false,
-                                      content: Column(
-                                        children: [
-                                          TextField(
-                                            decoration: InputDecoration(
-                                                border: OutlineInputBorder(),
-                                                labelText: 'Enter Name',
-                                                hintText: 'Enter Name'),
-                                            controller: _dialogueBoxText,
-                                          ),
-                                          DropdownButton(
-                                            value: dropdownvalue,
-                                            icon: Icon(Icons.keyboard_arrow_down),
-                                            items: items.map((String items) {
-                                              return DropdownMenuItem(value: items, child: Text(items));
-                                            }).toList(),
-                                            onChanged: (newValue)
-                                            {
+                                    title: "Add Rooms",
+                                    middleText: "Hello world!",
+                                    //  backgroundColor: Colors.green,
+                                    // titleStyle: TextStyle(color: Colors.white),
+                                    //middleTextStyle: TextStyle(color: Colors.white),
+                                    textConfirm: "Add",
+                                    textCancel: "Cancel",
+                                    onConfirm: (){
 
-                                           dropdownvalue(newValue.toString()) ;
-                                            },
-                                          ),
-                                        ],
-                                      ));
+                                      print("get x");
+                                      Get.back();
+
+                                    },
+                                    cancelTextColor: Colors.black,
+                                    confirmTextColor: Colors.black,
+                                    buttonColor:  Color(0xFF029b93),
+                                    barrierDismissible: false,
+                                    content: Column(
+                                      children: [
+                                        Obx(
+                                              () {
+                                            return DropdownButton(
+                                              value: dropdownvalue.value,
+                                              icon: Icon(
+                                                  Icons.keyboard_arrow_down),
+                                              items: items.map((String items) {
+                                                return DropdownMenuItem(
+                                                    value: items,
+                                                    child: Text(items));
+                                              }).toList(),
+                                              onChanged: (newValue) {
+                                                dropdownvalue.value =
+                                                    newValue.toString();
+                                              },
+                                            );
+                                          },
+                                        ),
+                                        TextField(
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: 'Enter Name',
+                                              hintText: 'Enter Name'),
+                                          controller: _dialogueBoxText,
+                                        ),
+
+                                      ],
+                                    ),
+                                  );
                                   print(dropdownvalue);
                                 },
                                 child: ClipOval(
@@ -299,8 +315,5 @@ class HomeScreen extends GetWidget<FirebaseController> {
         ],
       ),
     );
-
-
   }
-
 }

@@ -83,33 +83,34 @@ class LoginScreen extends GetWidget<FirebaseController> {
                       ///password
 
                       Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15.0),
-                          child: Obx(() {
-                            return TextFormField(
-                              controller: _passwordController,
-                              validator: validatePassword,
-                              // onSaved: (val) => password = val!,
-                              obscureText: _obscureTextPassword.value,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  suffixIcon: GestureDetector(
-                                    onTap: () {
-                                      _toggleLogin();
-                                      print(_obscureTextPassword.value);
-                                    },
-                                    child: Obx(() {
-                                      return Icon(
-                                        _obscureTextPassword.value
-                                            ? Icons.remove_red_eye_rounded
-                                            : Icons.password_sharp,
-                                        size: 20.0,
-                                        color: Colors.black,
-                                      );
-                                    }),
-                                  ),
-                                  labelText: "Password"),
-                            );
-                          })),
+                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        child: Obx(() {
+                          return TextFormField(
+                            controller: _passwordController,
+                            validator: validatePassword,
+                            // onSaved: (val) => password = val!,
+                            obscureText: _obscureTextPassword.value,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    _toggleLogin();
+                                    print(_obscureTextPassword.value);
+                                  },
+                                  child: Obx(() {
+                                    return Icon(
+                                      _obscureTextPassword.value
+                                          ? Icons.remove_red_eye_rounded
+                                          : Icons.password_sharp,
+                                      size: 20.0,
+                                      color: Colors.black,
+                                    );
+                                  }),
+                                ),
+                                labelText: "Password"),
+                          );
+                        }),
+                      ),
 
                       Align(
                         alignment: Alignment.centerRight,
