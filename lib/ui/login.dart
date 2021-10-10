@@ -20,9 +20,8 @@ import 'package:techvillaautomation/ui/signup.dart';
 
 import '../theme.dart';
 
-class LoginScreen extends GetWidget<FirebaseController> {
-  // final controllerr = Get.put(LoginController());
-
+class LoginScreen extends GetWidget<FirebaseController>
+{
   final GlobalKey<FormState> _key = new GlobalKey();
   final AutovalidateMode _validate = AutovalidateMode.disabled;
   final TextEditingController _passwordController = TextEditingController();

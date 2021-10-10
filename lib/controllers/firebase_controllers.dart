@@ -14,6 +14,8 @@ class FirebaseController extends GetxController {
   //static FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
+  Map dev = {};
+
 
 
   final databaseReference = FirebaseDatabase.instance.reference();
@@ -194,7 +196,14 @@ class FirebaseController extends GetxController {
     databaseReference.child("S401").once().then((DataSnapshot snapshot) {
       print(' ${snapshot.value}');
 
+      dev = snapshot.value;
+
     });
+  } 
+  void writeData(String reference, Map < dynamic ,dynamic> data){
+    databaseReference.child(reference).set(data);
+
+
   }
 
   void updateData(){

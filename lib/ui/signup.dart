@@ -395,6 +395,7 @@ class SignupPage extends GetWidget<FirebaseController> {
       await _register();
     } else {
       print(_validate);
+
       _validate = AutovalidateMode.onUserInteraction;
     }
   }
