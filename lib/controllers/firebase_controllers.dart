@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:firebase_core/firebase_core.dart";
 import 'package:flutter/material.dart';
@@ -5,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:techvillaautomation/constants.dart';
+import 'package:techvillaautomation/model/user.dart';
 import 'package:techvillaautomation/ui/home_screen.dart';
 import 'package:techvillaautomation/ui/login.dart';
 //import 'package:techvilla/model/user.dart';
@@ -16,8 +20,6 @@ class FirebaseController extends GetxController {
 
   Map dev = {};
 
-
-
   final databaseReference = FirebaseDatabase.instance.reference();
 
   GoogleSignIn googleSignIn = GoogleSignIn(
@@ -26,18 +28,17 @@ class FirebaseController extends GetxController {
 
   Rxn<User> _firebaseUser = Rxn<User>();
 
-
   String? get userUid => _firebaseUser.value?.uid;
   String? get userEmail => _firebaseUser.value?.email;
   String? get userName => _firebaseUser.value?.displayName;
   String? get imageUrl => _firebaseUser.value?.photoURL;
 
+  var isLoggedIn = false.obs;
+
   @override
   void onInit() {
     _firebaseUser.bindStream(_auth.authStateChanges());
   }
-
-
 
   // function to createuser, login and sign out user
 
@@ -54,8 +55,12 @@ class FirebaseController extends GetxController {
 
     await _auth
         .createUserWithEmailAndPassword(email: email, password: password)
-        .then((value)  => Get.offAll(HomeScreen())).
-    catchError(
+        .then((value) {
+      databaseReference.child("users").child(value.user!.uid).set(userdata);
+      Constants.userData = UserModel.fromJson(userdata);
+
+      Get.offAll(HomeScreen());
+    }).catchError(
       (onError) => Get.snackbar(
           "Error while creating account ", onError.message,
           duration: 1.seconds),
@@ -66,12 +71,19 @@ class FirebaseController extends GetxController {
   void login(String email, String password) async {
     await _auth
         .signInWithEmailAndPassword(email: email, password: password)
-        .then(
-          (value) => Get.offAll(
-            HomeScreen(),
-          ),
-        )
-        .catchError((onError) {
+        .then((value) {
+
+      databaseReference.child("users").child(value.user!.uid).get().then((data) {
+        print(data.value);
+
+        Constants.userData = UserModel.fromJson(Map<String, dynamic>.from(data.value));
+
+        isLoggedIn.value =true;
+        // Get.offAll(
+        //   HomeScreen(),
+        // );
+      });
+    }).catchError((onError) {
       String message = 'Couldn\'t sign up';
       switch (onError.code) {
         case 'wrong-password':
@@ -162,62 +174,52 @@ class FirebaseController extends GetxController {
     await googleSignIn.signOut().then((value) => Get.offAll(LoginScreen()));
   }
 
-  void createData(){
-    databaseReference.child("flutterDevsTeam1").set({
-      'name': 'Deepak Nishad',
-      'description': 'Team Lead'
-    });
-    databaseReference.child("flutterDevsTeam2").set({
-      'name': 'Yashwant Kumar',
-      'description': 'Senior Software Engineer'
-    });
-    databaseReference.child("flutterDevsTeam3").set({
-      'name': 'Akshay',
-      'description': 'Software Engineer'
-    });
-    databaseReference.child("flutterDevsTeam4").set({
-      'name': 'Aditya',
-      'description': 'Software Engineer'
-    });
-    databaseReference.child("flutterDevsTeam5").set({
-      'name': 'Shaiq',
-      'description': 'Associate Software Engineer'
-    });
-    databaseReference.child("flutterDevsTeam6").set({
-      'name': 'Mohit',
-      'description': 'Associate Software Engineer'
-    });
-    databaseReference.child("flutterDevsTeam7").set({
-      'name': 'Naveen',
-      'description': 'Associate Software Engineer'
-    });
+  void createData() {
+    databaseReference
+        .child("flutterDevsTeam1")
+        .set({'name': 'Deepak Nishad', 'description': 'Team Lead'});
+    databaseReference.child("flutterDevsTeam2").set(
+        {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'});
+    databaseReference
+        .child("flutterDevsTeam3")
+        .set({'name': 'Akshay', 'description': 'Software Engineer'});
+    databaseReference
+        .child("flutterDevsTeam4")
+        .set({'name': 'Aditya', 'description': 'Software Engineer'});
+    databaseReference
+        .child("flutterDevsTeam5")
+        .set({'name': 'Shaiq', 'description': 'Associate Software Engineer'});
+    databaseReference
+        .child("flutterDevsTeam6")
+        .set({'name': 'Mohit', 'description': 'Associate Software Engineer'});
+    databaseReference
+        .child("flutterDevsTeam7")
+        .set({'name': 'Naveen', 'description': 'Associate Software Engineer'});
   }
-  void readData(){
+
+  void readData() {
     databaseReference.child("S401").once().then((DataSnapshot snapshot) {
       print(' ${snapshot.value}');
 
       dev = snapshot.value;
-
     });
-  } 
-  void writeData(String reference, Map < dynamic ,dynamic> data){
+  }
+
+  void writeData(String reference, Map<dynamic, dynamic> data) {
     databaseReference.child(reference).set(data);
-
-
   }
 
-  void updateData(){
-    databaseReference.child('flutterDevsTeam1').update({
-      'description': 'CEO'
-    });
-    databaseReference.child('flutterDevsTeam2').update({
-      'description': 'Team Lead'
-    });
-    databaseReference.child('flutterDevsTeam3').update({
-      'description': 'Senior Software Engineer'
-    });
+  void updateData() {
+    databaseReference.child('flutterDevsTeam1').update({'description': 'CEO'});
+    databaseReference
+        .child('flutterDevsTeam2')
+        .update({'description': 'Team Lead'});
+    databaseReference
+        .child('flutterDevsTeam3')
+        .update({'description': 'Senior Software Engineer'});
   }
-  void deleteData(){
+
+  void deleteData() {
     databaseReference.child('flutterDevsTeam1').remove();
     databaseReference.child('flutterDevsTeam2').remove();
     databaseReference.child('flutterDevsTeam3').remove();

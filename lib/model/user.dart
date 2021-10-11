@@ -1,37 +1,37 @@
 import 'dart:io';
 
-class User {
-  String userID;
-  String email;
+class UserModel {
+  String? userID;
+  String? email;
 
-  String name;
+  String? name;
 
-  String num;
-  String profilePictureURL;
+  String? num;
+  String? profilePictureURL;
 
-  User(
+  UserModel(
       {this.email = '',
       this.num = '',
       this.name = '',
       this.userID = '',
       this.profilePictureURL = ''});
 
-  factory User.fromJson(Map<String, dynamic> parsedJson) {
-    return new User(
-        email: parsedJson['email'] ?? '',
-        num: parsedJson['num'],
-        name: parsedJson['name'] ?? '',
-        userID: parsedJson['id'] ?? parsedJson['userID'] ?? '',
-        profilePictureURL: parsedJson['profilePictureURL'] ?? '');
+  factory UserModel.fromJson(Map<dynamic, dynamic> parsedJson) {
+    return new UserModel(
+        email: parsedJson['Email'] ?? '',
+        num: parsedJson['Contact'],
+        name: parsedJson['Name'] ?? '',
+        userID: parsedJson['Id'] ?? parsedJson['UserID'] ?? '',
+        profilePictureURL: parsedJson['ProfilePictureURL'] ?? '');
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'email': this.email,
-      'name': this.name,
-      'id': this.userID,
-      'profilePictureURL': this.profilePictureURL,
-      'num': this.num
+      'Email': this.email,
+      'Name': this.name,
+      'Id': this.userID,
+      'ProfilePictureURL': this.profilePictureURL,
+      'Contact': this.num
     };
   }
 }

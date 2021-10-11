@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:techvillaautomation/controllers/firebase_controllers.dart';
+import 'package:techvillaautomation/model/user.dart';
 
+import '../../constants.dart';
 import '../../theme.dart';
 
 class ProfileScreen extends GetWidget<FirebaseController> {
@@ -88,7 +90,7 @@ class ProfileScreen extends GetWidget<FirebaseController> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListTile(
-                  title: Text("${controller.userUid}"),
+                  title: Text(Constants.userData!.name.toString()),
                 ),
               ),
             ],
