@@ -33,7 +33,7 @@ class FirebaseController extends GetxController {
   String? get userName => _firebaseUser.value?.displayName;
   String? get imageUrl => _firebaseUser.value?.photoURL;
 
-  var isLoggedIn = false.obs;
+  var isLoggedIn = true.obs;
 
   @override
   void onInit() {
@@ -79,9 +79,9 @@ class FirebaseController extends GetxController {
         Constants.userData = UserModel.fromJson(Map<String, dynamic>.from(data.value));
 
         isLoggedIn.value =true;
-        // Get.offAll(
-        //   HomeScreen(),
-        // );
+        Get.offAll(
+          HomeScreen(),
+        );
       });
     }).catchError((onError) {
       String message = 'Couldn\'t sign up';

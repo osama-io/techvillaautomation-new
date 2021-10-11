@@ -279,18 +279,123 @@ class HomeScreen extends GetWidget<FirebaseController> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
+                                  Obx(() {
+                                    return Column(
+                                      children: [
+                                        roomData.isEmpty
+                                            ? Padding(
+                                              padding: const EdgeInsets.only(top: 100),
+                                              child: GestureDetector(
+                                          onTap: () {
+                                              print("after");
+                                              print("before");
+                                              Get.defaultDialog(
+                                                title: "Add Rooms",
+                                                middleText: "Hello world!",
+                                                //  backgroundColor: Colors.green,
+                                                // titleStyle: TextStyle(color: Colors.white),
+                                                //middleTextStyle: TextStyle(color: Colors.white),
+                                                textConfirm: "Add",
+                                                textCancel: "Cancel",
+                                                onConfirm: () {
+                                                  //roomData.add(dropdownvalue.value);
+                                                  roomData.add({
+                                                    "roomType":
+                                                    dropdownvalue.value,
+                                                    "roomName":
+                                                    roomNameText.text,
+                                                    "icon":
+                                                    dropdownvalue.value,
+                                                  });
+                                                  roomNameText.clear();
+                                                  Get.back();
+                                                },
+                                                cancelTextColor:
+                                                Colors.black,
+                                                confirmTextColor:
+                                                Colors.black,
+                                                buttonColor:
+                                                Color(0xFF029b93),
+                                                barrierDismissible: false,
+                                                content: Column(
+                                                  children: [
+                                                    Obx(
+                                                          () {
+                                                        return DropdownButton(
+                                                          value:
+                                                          dropdownvalue
+                                                              .value,
+                                                          icon: Icon(Icons
+                                                              .keyboard_arrow_down),
+                                                          items: items.map(
+                                                                  (String
+                                                              items) {
+                                                                return DropdownMenuItem(
+                                                                    value:
+                                                                    items,
+                                                                    child: Text(
+                                                                        items));
+                                                              }).toList(),
+                                                          onChanged:
+                                                              (newValue) {
+                                                            dropdownvalue
+                                                                .value =
+                                                                newValue
+                                                                    .toString();
+                                                          },
+                                                        );
+                                                      },
+                                                    ),
+                                                    TextField(
+                                                      decoration: InputDecoration(
+                                                          border:
+                                                          OutlineInputBorder(),
+                                                          labelText:
+                                                          'Enter Name',
+                                                          hintText:
+                                                          'Enter Name'),
+                                                      controller:
+                                                      roomNameText,
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                          },
+                                          child: ClipOval(
+                                              child: Container(
+                                                color: Colors.black12,
+                                                width: 60,
+                                                height: 60,
+                                                child: Icon(Icons.add),
+                                              ),
+                                          ),
+                                        ),
+                                            )
+                                            : Container(),
+                                        roomData.isEmpty
+                                            ? Text("No Rooms Click + to add")
+                                            : Container(),
+                                      ],
+                                    );
+                                  }),
+
                                   Container(
-                                    margin: EdgeInsets.only(top: 21),
+                                    margin: EdgeInsets.only(top: 20),
                                     // color: Colors.deepPurple,
-                                    height: 200,
+                                    height: 300,
                                     // / color: Colors.yellow,
                                     child: Obx(() {
-                                      return ListView.builder(
+                                      return GridView.builder(
+                                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                                            maxCrossAxisExtent: 150,
+                                            childAspectRatio:  3/3,
+                                            crossAxisSpacing: 0,
+                                            mainAxisSpacing: 10),
                                           padding: EdgeInsets.only(
                                               left: 10, right: 10),
                                           itemCount: roomData.length,
                                           physics: BouncingScrollPhysics(),
-                                          scrollDirection: Axis.horizontal,
+                                          scrollDirection: Axis.vertical,
                                           itemBuilder: (context, index) {
                                             return GestureDetector(
                                               onTap: () {
@@ -307,134 +412,31 @@ class HomeScreen extends GetWidget<FirebaseController> {
                                                           .loginGradientEnd,
                                                       shape: BoxShape.circle,
                                                     ),
-                                                    margin: EdgeInsets.only(
-                                                        right: 19),
-                                                    height: 100,
-                                                    width: 100,
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Image.asset(
-                                                          "assets/" +
-                                                              roomData[index]
-                                                                  ['icon'] +
-                                                              ".png",
-                                                          height: 40,
-                                                          width: 40,
-                                                        ),
-                                                      ],
+
+                                                     height: 100,
+                                                     width: 200,
+                                                    child: Center(
+                                                      child: Image.asset(
+                                                        "assets/" +
+                                                            roomData[index]
+                                                                ['icon'] +
+                                                            ".png",
+                                                        height: 40,
+                                                        width: 40,
+                                                      ),
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    height: 10,
+                                                  Expanded(
+                                                    child: Text(roomData[index]
+                                                            ['roomName']
+                                                        .toString()),
                                                   ),
-                                                  Text(roomData[index]
-                                                          ['roomName']
-                                                      .toString()),
                                                 ],
                                               ),
                                             );
                                           });
                                     }),
                                   ),
-                                  Obx(() {
-                                    return Column(
-                                      children: [
-                                        roomData.isEmpty
-                                            ? GestureDetector(
-                                                onTap: () {
-                                                  print("after");
-                                                  print("before");
-                                                  Get.defaultDialog(
-                                                    title: "Add Rooms",
-                                                    middleText: "Hello world!",
-                                                    //  backgroundColor: Colors.green,
-                                                    // titleStyle: TextStyle(color: Colors.white),
-                                                    //middleTextStyle: TextStyle(color: Colors.white),
-                                                    textConfirm: "Add",
-                                                    textCancel: "Cancel",
-                                                    onConfirm: () {
-                                                      //roomData.add(dropdownvalue.value);
-                                                      roomData.add({
-                                                        "roomType":
-                                                            dropdownvalue.value,
-                                                        "roomName":
-                                                            roomNameText.text,
-                                                        "icon":
-                                                            dropdownvalue.value,
-                                                      });
-                                                      roomNameText.clear();
-                                                      Get.back();
-                                                    },
-                                                    cancelTextColor:
-                                                        Colors.black,
-                                                    confirmTextColor:
-                                                        Colors.black,
-                                                    buttonColor:
-                                                        Color(0xFF029b93),
-                                                    barrierDismissible: false,
-                                                    content: Column(
-                                                      children: [
-                                                        Obx(
-                                                          () {
-                                                            return DropdownButton(
-                                                              value:
-                                                                  dropdownvalue
-                                                                      .value,
-                                                              icon: Icon(Icons
-                                                                  .keyboard_arrow_down),
-                                                              items: items.map(
-                                                                  (String
-                                                                      items) {
-                                                                return DropdownMenuItem(
-                                                                    value:
-                                                                        items,
-                                                                    child: Text(
-                                                                        items));
-                                                              }).toList(),
-                                                              onChanged:
-                                                                  (newValue) {
-                                                                dropdownvalue
-                                                                        .value =
-                                                                    newValue
-                                                                        .toString();
-                                                              },
-                                                            );
-                                                          },
-                                                        ),
-                                                        TextField(
-                                                          decoration: InputDecoration(
-                                                              border:
-                                                                  OutlineInputBorder(),
-                                                              labelText:
-                                                                  'Enter Name',
-                                                              hintText:
-                                                                  'Enter Name'),
-                                                          controller:
-                                                              roomNameText,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                },
-                                                child: ClipOval(
-                                                  child: Container(
-                                                    color: Colors.black12,
-                                                    width: 60,
-                                                    height: 60,
-                                                    child: Icon(Icons.add),
-                                                  ),
-                                                ),
-                                              )
-                                            : Container(),
-                                        roomData.isEmpty
-                                            ? Text("No Rooms Click + to add")
-                                            : Container(),
-                                      ],
-                                    );
-                                  })
                                 ],
                               ),
                             ],
