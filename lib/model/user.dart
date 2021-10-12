@@ -1,7 +1,7 @@
 import 'dart:io';
 
 class UserModel {
-  String? userID;
+  String? userUid;
   String? email;
 
   String? name;
@@ -13,7 +13,7 @@ class UserModel {
       {this.email = '',
       this.num = '',
       this.name = '',
-      this.userID = '',
+      this.userUid = '',
       this.profilePictureURL = ''});
 
   factory UserModel.fromJson(Map<dynamic, dynamic> parsedJson) {
@@ -21,7 +21,7 @@ class UserModel {
         email: parsedJson['Email'] ?? '',
         num: parsedJson['Contact'],
         name: parsedJson['Name'] ?? '',
-        userID: parsedJson['Id'] ?? parsedJson['UserID'] ?? '',
+        userUid: parsedJson['Id'] ?? parsedJson['UserID'] ?? '',
         profilePictureURL: parsedJson['ProfilePictureURL'] ?? '');
   }
 
@@ -29,7 +29,7 @@ class UserModel {
     return {
       'Email': this.email,
       'Name': this.name,
-      'Id': this.userID,
+      'Id': this.userUid,
       'ProfilePictureURL': this.profilePictureURL,
       'Contact': this.num
     };
@@ -37,4 +37,3 @@ class UserModel {
 }
 
 
-List<String> room =["1","2","3","4","5"];

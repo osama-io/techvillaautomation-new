@@ -171,7 +171,7 @@ class HomeScreen extends GetWidget<FirebaseController> {
                                           child: Padding(
                                             padding: const EdgeInsets.only(
                                                 right: 5.0),
-                                            child: GestureDetector(
+                                         child:   GestureDetector(
                                               onTap: () {
                                                 print("after");
                                                 print("before");
@@ -185,41 +185,48 @@ class HomeScreen extends GetWidget<FirebaseController> {
                                                   textCancel: "Cancel",
                                                   onConfirm: () {
                                                     //roomData.add(dropdownvalue.value);
+                                                    controller.createRoom(roomNameText.text, dropdownvalue.value, dropdownvalue.value);
                                                     roomData.add({
                                                       "roomType":
-                                                          dropdownvalue.value,
+                                                      dropdownvalue.value,
                                                       "roomName":
-                                                          roomNameText.text,
+                                                      roomNameText.text,
                                                       "icon":
-                                                          dropdownvalue.value,
+                                                      dropdownvalue.value,
                                                     });
+                                                    roomNameText.clear();
+                                                    Get.back();
                                                   },
-                                                  cancelTextColor: Colors.black,
+                                                  cancelTextColor:
+                                                  Colors.black,
                                                   confirmTextColor:
-                                                      Colors.black,
+                                                  Colors.black,
                                                   buttonColor:
-                                                      Color(0xFF029b93),
+                                                  Color(0xFF029b93),
                                                   barrierDismissible: false,
                                                   content: Column(
                                                     children: [
                                                       Obx(
-                                                        () {
+                                                            () {
                                                           return DropdownButton(
-                                                            value: dropdownvalue
+                                                            value:
+                                                            dropdownvalue
                                                                 .value,
                                                             icon: Icon(Icons
                                                                 .keyboard_arrow_down),
                                                             items: items.map(
-                                                                (String items) {
-                                                              return DropdownMenuItem(
-                                                                  value: items,
-                                                                  child: Text(
-                                                                      items));
-                                                            }).toList(),
+                                                                    (String
+                                                                items) {
+                                                                  return DropdownMenuItem(
+                                                                      value:
+                                                                      items,
+                                                                      child: Text(
+                                                                          items));
+                                                                }).toList(),
                                                             onChanged:
                                                                 (newValue) {
                                                               dropdownvalue
-                                                                      .value =
+                                                                  .value =
                                                                   newValue
                                                                       .toString();
                                                             },
@@ -229,13 +236,13 @@ class HomeScreen extends GetWidget<FirebaseController> {
                                                       TextField(
                                                         decoration: InputDecoration(
                                                             border:
-                                                                OutlineInputBorder(),
+                                                            OutlineInputBorder(),
                                                             labelText:
-                                                                'Enter Name',
+                                                            'Enter Name',
                                                             hintText:
-                                                                'Enter Name'),
+                                                            'Enter Name'),
                                                         controller:
-                                                            roomNameText,
+                                                        roomNameText,
                                                       ),
                                                     ],
                                                   ),
@@ -245,7 +252,7 @@ class HomeScreen extends GetWidget<FirebaseController> {
                                                 child: Container(
                                                   color: Colors.black12,
                                                   width: 60,
-                                                  height: 40,
+                                                  height: 60,
                                                   child: Icon(Icons.add),
                                                 ),
                                               ),
@@ -299,6 +306,7 @@ class HomeScreen extends GetWidget<FirebaseController> {
                                                 textCancel: "Cancel",
                                                 onConfirm: () {
                                                   //roomData.add(dropdownvalue.value);
+                                                  controller.createRoom(roomNameText.text, dropdownvalue.value, dropdownvalue.value);
                                                   roomData.add({
                                                     "roomType":
                                                     dropdownvalue.value,

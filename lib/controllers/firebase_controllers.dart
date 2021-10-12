@@ -42,10 +42,22 @@ class FirebaseController extends GetxController {
 
   // function to createuser, login and sign out user
 
+  void createRoom(String roomName,String roomType,String roomIcon)
+  async{
+
+    Map<String, String> roomData = {
+      "Room Name": roomName,
+      "Room Type": roomType,
+      "Room Icon": roomIcon,
+    };
+    databaseReference.child("users").child(userUid.toString()).child("Rooms").push().set(roomData);
+    Constants.userData = UserModel.fromJson(roomData);
+  }
+
   void signUp(String name, String email, String password,
       String confirmPassword, String num) async {
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("users");
+    // CollectionReference reference =
+    //     FirebaseFirestore.instance.collection("users");
 
     Map<String, String> userdata = {
       "Name": name,
@@ -56,6 +68,7 @@ class FirebaseController extends GetxController {
     await _auth
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
+
       databaseReference.child("users").child(value.user!.uid).set(userdata);
       Constants.userData = UserModel.fromJson(userdata);
 

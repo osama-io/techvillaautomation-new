@@ -1,3 +1,4 @@
+import 'package:techvillaautomation/model/RoomModel.dart';
 import 'package:techvillaautomation/model/user.dart';
 
 const FINISHED_ON_BOARDING = 'finishedOnBoarding';
@@ -15,4 +16,5 @@ enum ImageSource {
 
 class Constants {
   static UserModel?  userData;
+  static RoomModel? roomModel;
 }

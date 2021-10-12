@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:techvillaautomation/controllers/firebase_controllers.dart';
@@ -328,6 +329,8 @@ class SignupPage extends GetWidget<FirebaseController> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: TextFormField(
+                        maxLength: 11,
+
                         controller: _numController,
                         validator: validateMobile,
                         // onFieldSubmitted: (_) => _signUp(),
