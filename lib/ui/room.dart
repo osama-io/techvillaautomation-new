@@ -14,46 +14,12 @@ class RoomScreen extends StatefulWidget {
 }
 
 class _RoomScreenState extends State<RoomScreen> {
-  late Query _ref;
   DatabaseReference reference =
       FirebaseDatabase.instance.reference().child('S401');
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _ref = FirebaseDatabase.instance.reference().child('S401');
-  }
-
-  Widget _buildDeviceItem({required Map device}) {
-    return Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
-        padding: EdgeInsets.all(10),
-        height: 130,
-        color: Colors.white,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.person,
-                    color: Theme.of(context).primaryColor,
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Text(
-                    device['R1'],
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-            ]));
   }
 
   final qrController = Get.put(QrController());
@@ -89,70 +55,22 @@ class _RoomScreenState extends State<RoomScreen> {
         ],
       ),
       body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        child: Column(
-          children: [
-            Container(
-              height: 300,
-              width: 400,
-              child: FirebaseAnimatedList(
-                query: _ref,
-                itemBuilder: (BuildContext context, DataSnapshot snapshot,
-                    Animation<double> animation, int index) {
-                  print(' ${snapshot.value}');
-                  Map<dynamic, dynamic> device = snapshot.value;
-                  // contact['key'] = snapshot.key;
-                  return _buildDeviceItem(device: device);
-                },
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 21),
-              // color: Colors.deepPurple,
-              height: 200,
-              child: Obx(() {
-                return ListView.builder(
-                    padding: EdgeInsets.only(left: 25, right: 6),
-                    itemCount: roomData.length,
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Get.back();
-                          print("back");
-                        },
-                        child: Center(
-                          child: Container(
-                            color: Colors.grey,
-                            margin: EdgeInsets.only(right: 19),
-                            height: 200,
-                            width: 200,
-                            child: Column(
-                              children: [
-                                Text(roomData[index]['roomType'].toString()),
-                                Text(roomData[index]['roomName'].toString()),
-                                Image.asset(
-                                  "assets/" +
-                                      roomData[index]['icon'].toString(),
-                                ),
-                                Image.asset(
-                                  "assets/Main Gate.png",
-                                  height: 100,
-                                  width: 100,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    });
-              }),
-            ),
-          ],
-        ),
-      ),
+          height: double.infinity,
+          width: double.infinity,
+          child: FutureBuilder(
+            future: reference.get(),
+            builder: (BuildContext context, AsyncSnapshot<DataSnapshot> snapshot) {
+              if (snapshot.hasData) {
+                print('kool');
+                print(snapshot.data!.value);
+               // Model mm - Model.formjson(snapshot.data!.value);
+                return Container(
+                child :Text(snapshot.data!.value['R7'].toString()) ,
+                );
+              }
+              return Container();
+            },
+          )),
     );
   }
 }
