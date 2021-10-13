@@ -8,6 +8,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:techvillaautomation/constants.dart';
+import 'package:techvillaautomation/controllers/qr_controller.dart';
+import 'package:techvillaautomation/model/RoomModel.dart';
 import 'package:techvillaautomation/model/user.dart';
 import 'package:techvillaautomation/ui/home_screen.dart';
 import 'package:techvillaautomation/ui/login.dart';
@@ -21,6 +23,7 @@ class FirebaseController extends GetxController {
   Map dev = {};
 
   final databaseReference = FirebaseDatabase.instance.reference();
+  final roomController = Get.put((RoomModel));
 
   GoogleSignIn googleSignIn = GoogleSignIn(
     scopes: ['email'],
@@ -41,17 +44,47 @@ class FirebaseController extends GetxController {
   }
 
   // function to createuser, login and sign out user
+  void readRoom() {
+    databaseReference
+        .child("users")
+        .child(userUid.toString())
+        .child("Rooms")
+        .once()
+        .then((DataSnapshot snapshot) {
+      var keys = snapshot.value.keys;
+      var values = snapshot.value;
+      print(snapshot.value);
 
-  void createRoom(String roomName,String roomType,String roomIcon)
-  async{
+      for (var key in keys) {
+        RoomModel room = new RoomModel(
+          values[key]["Room Type"],
+          values[key]["Room Name"],
+          values[key]["Room Icon"],
+        );
+        print(room);
+        //roomData.add(room);
+      }
 
+      // print(snapshot.value);
+      print("upr");
+
+      print(roomData);
+    });
+  }
+
+  void createRoom(String roomName, String roomType, String roomIcon) async {
     Map<String, String> roomData = {
       "Room Name": roomName,
       "Room Type": roomType,
       "Room Icon": roomIcon,
     };
-    databaseReference.child("users").child(userUid.toString()).child("Rooms").push().set(roomData);
-    Constants.userData = UserModel.fromJson(roomData);
+    databaseReference
+        .child("users")
+        .child(userUid.toString())
+        .child("Rooms")
+        .push()
+        .set(roomData);
+    // Constants.userData = UserModel.fromJson(roomData);
   }
 
   void signUp(String name, String email, String password,
@@ -68,7 +101,6 @@ class FirebaseController extends GetxController {
     await _auth
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
-
       databaseReference.child("users").child(value.user!.uid).set(userdata);
       Constants.userData = UserModel.fromJson(userdata);
 
@@ -85,13 +117,17 @@ class FirebaseController extends GetxController {
     await _auth
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
-
-      databaseReference.child("users").child(value.user!.uid).get().then((data) {
+      databaseReference
+          .child("users")
+          .child(value.user!.uid)
+          .get()
+          .then((data) {
         print(data.value);
 
-        Constants.userData = UserModel.fromJson(Map<String, dynamic>.from(data.value));
+        Constants.userData =
+            UserModel.fromJson(Map<String, dynamic>.from(data.value));
 
-        isLoggedIn.value =true;
+        isLoggedIn.value = true;
         Get.offAll(
           HomeScreen(),
         );
@@ -213,7 +249,6 @@ class FirebaseController extends GetxController {
   void readData() {
     databaseReference.child("S401").once().then((DataSnapshot snapshot) {
       print(' ${snapshot.value}');
-
       dev = snapshot.value;
     });
   }
