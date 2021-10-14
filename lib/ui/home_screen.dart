@@ -409,7 +409,6 @@ class HomeScreen extends GetWidget<FirebaseController> {
                                       ],
                                     );
                                   }),
-
                                   Container(
                                     margin: EdgeInsets.only(top: 20),
                                     // color: Colors.deepPurple,
