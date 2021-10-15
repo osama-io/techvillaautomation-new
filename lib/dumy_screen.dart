@@ -21,7 +21,7 @@ class DumyScreen extends StatefulWidget {
 class _DumyScreenState extends State<DumyScreen> {
 
 
-  DatabaseReference reference = FirebaseDatabase.instance.reference().child('S401');
+  DatabaseReference reference = FirebaseDatabase.instance.reference().child('data').child('S401');
 
   final dbRef = FirebaseDatabase.instance.reference().child('users');
   final ref = FirebaseDatabase.instance;
@@ -59,7 +59,11 @@ class _DumyScreenState extends State<DumyScreen> {
                 builder: (context, AsyncSnapshot<Event> snapshot){
                   if(!snapshot.hasData){
                     return Text('Loading');
-                  }else {
+                  }
+                  else if(!snapshot.data!.snapshot.exists){
+                    return Center(child: Text('No room found create'));
+                  }
+                  else {
                     Map<dynamic, dynamic> map = snapshot.data!.snapshot.value;
                     List<dynamic> list = [];
                     list.clear();
@@ -72,12 +76,16 @@ class _DumyScreenState extends State<DumyScreen> {
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => DumyRoom( name : list[index]['Room Name'])));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => DumyRoom(
+                            index: index,
+                            name : list[index]['Room Name'] , roomId: list[index]['roomId'],)));
                           },
                           child: ListTile(
                             title: Text(list[index]['Room Name']),
                             contentPadding: EdgeInsets.all(0),
-                            leading: CircleAvatar(radius: 15,backgroundColor: Colors.blue,),
+                            leading: CircleAvatar(
+                              child:Image(image:  AssetImage( list[index]['Room Name'] == "Room" ? 'assets/Room.png' : 'assets/Room.png')),
+                              radius: 15,backgroundColor: Colors.blue,),
                           ),
                         );
                       },

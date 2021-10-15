@@ -492,7 +492,7 @@ class HomeScreen extends GetWidget<FirebaseController> {
                     child: Container(
                       child: GestureDetector(
                         onTap: () {
-                          controller.readRoom();
+                       //   controller.readRoom();
                         },
                         child: Card(
                           shape: RoundedRectangleBorder(

@@ -45,12 +45,15 @@ class FirebaseController extends GetxController {
   void createRoom(String roomName,String roomType,String roomIcon)
   async{
 
+
+    var id = DateTime.now().millisecondsSinceEpoch ;
     Map<String, String> roomData = {
       "Room Name": roomName,
       "Room Type": roomType,
       "Room Icon": roomIcon,
+      "roomId": id.toString(),
     };
-    databaseReference.child("users").child(userUid.toString()).child("Rooms").push().set(roomData);
+    databaseReference.child("users").child(userUid.toString()).child("Rooms").child(id.toString()).set(roomData);
     Constants.userData = UserModel.fromJson(roomData);
   }
 
