@@ -213,38 +213,6 @@ class _DumyRoomState extends State<DumyRoom> {
             ),
           ),
 
-
-          // if(code != "")
-         //  Expanded(
-         //    child: FirebaseAnimatedList(
-         //      query: reference.child('data').child(code),
-         //      itemBuilder: (
-         //          BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index) {
-         //        var data = snapshot.value;
-         //       // print(snapshot.value);
-         //        return Column(
-         //          children: [
-         //            ListTile(
-         //              leading: CircleAvatar(radius: 15 , backgroundColor: Colors.blue,),
-         //              title: Text(snapshot.value['deviceName'].toString()),
-         //              trailing: CupertinoSwitch(
-         //                value: snapshot.value['value'] == 1 ? true : false,
-         //                onChanged: (bool value) {
-         //                 // update();
-         //                 //  dbRef.child(userId).child('Rooms').child(widget.roomId).child('S401').child(snapshot.value['id'].toString()).update({
-         //                 //    'value' : snapshot.value['value'] == 1 ? 0 : 1
-         //                 //  });
-         //                  setState(() { snapshot.value['value'] = value; });
-         //                },
-         //              ),
-         //            ),
-         //
-         //          ],
-         //        );
-         //      },
-         //
-         //    ),
-         //  ),
         ],
       ),
     );

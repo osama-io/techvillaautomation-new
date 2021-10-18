@@ -40,8 +40,6 @@ class FirebaseController extends GetxController {
     _firebaseUser.bindStream(_auth.authStateChanges());
   }
 
-  // function to createuser, login and sign out user
-
   void createRoom(String roomName,String roomType,String roomIcon)
   async{
 

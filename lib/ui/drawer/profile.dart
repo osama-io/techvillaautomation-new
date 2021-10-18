@@ -78,7 +78,7 @@ class ProfileScreen extends GetWidget<FirebaseController> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListTile(
-                  title: Text(controller.userName?.toString() ?? "abc"),
+                  title: Text(Constants.userData!.name ?? ""),
                 ),
               ),
               Padding(

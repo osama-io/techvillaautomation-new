@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -20,19 +18,20 @@ class RoomModel extends GetxController {
   RoomModel(this.roomType, this.roomName, this.icon);
 }
 
- //  RoomModel? fromsnapshot(DocumentSnapshot snapshot) {
- //  RoomModel roomModel = RoomModel(snapshot["roomType"], snapshot['roomName'], snapshot["roomType"]);
- //
- //  return roomModel;
- //
- // }
+//  RoomModel? fromsnapshot(DocumentSnapshot snapshot) {
+//  RoomModel roomModel = RoomModel(snapshot["roomType"], snapshot['roomName'], snapshot["roomType"]);
 //
-// List<RoomModel> room = roomData
-//     .map((item) => RoomModel(item["roomType"], item['roomName'].toString(),
-//         iconSelector(item["roomType"])))
-//     .toList();
+//  return roomModel;
+//
+// }
+//
+List<RoomModel> room = roomData
+    .map((item) => RoomModel(item["roomType"], item['roomName'].toString(),
+        iconSelector(item["roomType"])))
+    .toList();
 
 var roomData = [].obs;
+
 
 String? iconSelector(String roomType) {
   if (roomType == "Room") {

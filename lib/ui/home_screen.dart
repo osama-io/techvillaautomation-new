@@ -20,8 +20,8 @@ import 'drawer/profile.dart';
 class HomeScreen extends GetWidget<FirebaseController> {
   final qrController = Get.put(QrController());
 
-  FirebaseController cont = FirebaseController ();
-  List lists = [] ;
+  FirebaseController cont = FirebaseController();
+  List lists = [];
   final dbRef = FirebaseDatabase.instance.reference().child('users');
 
   bool view() {
@@ -40,9 +40,6 @@ class HomeScreen extends GetWidget<FirebaseController> {
     'Tv Lounge',
   ];
   final TextEditingController roomNameText = TextEditingController();
-
-  FirebaseAuth _auth = FirebaseAuth.instance ;
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +60,9 @@ class HomeScreen extends GetWidget<FirebaseController> {
         ),
         actions: [
           InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => DumyScreen()));
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DumyScreen()));
               },
               child: Icon(Icons.add))
         ],
@@ -284,6 +282,7 @@ class HomeScreen extends GetWidget<FirebaseController> {
                       ),
                     ),
                   ),
+
                   ///body
                   Expanded(
                     flex: 5,
@@ -492,7 +491,7 @@ class HomeScreen extends GetWidget<FirebaseController> {
                     child: Container(
                       child: GestureDetector(
                         onTap: () {
-                       //   controller.readRoom();
+                          //  controller.readRoom();
                         },
                         child: Card(
                           shape: RoundedRectangleBorder(
