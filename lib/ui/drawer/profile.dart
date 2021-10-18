@@ -58,15 +58,15 @@ class ProfileScreen extends GetWidget<FirebaseController> {
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 80,
-                  right: 0,
-                  child: FloatingActionButton(
-                      backgroundColor: Colors.red,
-                      child: Icon(Icons.camera_alt),
-                      mini: true,
-                      onPressed: () {}),
-                )
+                // Positioned(
+                //   left: 80,
+                //   right: 0,
+                //   child: FloatingActionButton(
+                //       backgroundColor: Colors.red,
+                //       child: Icon(Icons.camera_alt),
+                //       mini: true,
+                //       onPressed: () {}),
+                // )
               ],
             ),
           ),
@@ -78,7 +78,7 @@ class ProfileScreen extends GetWidget<FirebaseController> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListTile(
-                  title: Text(Constants.userData!.name ?? ""),
+                  title: Text("${controller.userName}"),
                 ),
               ),
               Padding(

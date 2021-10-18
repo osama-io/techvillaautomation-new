@@ -1,4 +1,5 @@
-import 'package:techvillaautomation/ui/home_screen.dart';
+import 'package:techvillaautomation/ui/dash_board.dart';
+
 import 'package:techvillaautomation/ui/login.dart';
 
 import 'package:get/get.dart';
@@ -11,7 +12,7 @@ class IsSignedIn extends GetWidget<FirebaseController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Get.find<FirebaseController>().userEmail != null
-          ? HomeScreen()
+          ? DashBoard()
           : LoginScreen();
     });
   }

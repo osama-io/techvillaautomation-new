@@ -9,7 +9,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:techvillaautomation/constants.dart';
 import 'package:techvillaautomation/model/user.dart';
-import 'package:techvillaautomation/ui/home_screen.dart';
+import 'package:techvillaautomation/ui/dash_board.dart';
+
 import 'package:techvillaautomation/ui/login.dart';
 //import 'package:techvilla/model/user.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -73,7 +74,7 @@ class FirebaseController extends GetxController {
       databaseReference.child("users").child(value.user!.uid).set(userdata);
       Constants.userData = UserModel.fromJson(userdata);
 
-      Get.offAll(HomeScreen());
+      Get.offAll(DashBoard());
     }).catchError(
       (onError) => Get.snackbar(
           "Error while creating account ", onError.message,
@@ -94,7 +95,7 @@ class FirebaseController extends GetxController {
 
         isLoggedIn.value =true;
         Get.offAll(
-          HomeScreen(),
+          DashBoard(),
         );
       });
     }).catchError((onError) {
@@ -180,7 +181,7 @@ class FirebaseController extends GetxController {
 
     final User user = (await _auth.signInWithCredential(credential).then(
         (value) async => await Get.offAll(
-            HomeScreen()))); //if credential success, then using _auth signed in user data will be stored
+            DashBoard()))); //if credential success, then using _auth signed in user data will be stored
   }
 
   //sign out with google function
